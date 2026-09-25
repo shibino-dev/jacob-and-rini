@@ -506,11 +506,19 @@
   .t-item h3{font-size:1.35rem; color:var(--maroon); font-weight:500; margin-bottom:6px;}
   .t-item p{color:var(--ink-soft); font-size:0.98rem;}
   @media (max-width:640px){
-    .timeline::before{left:14px;}
-    .t-item, .t-item:nth-child(odd), .t-item:nth-child(even){
-      width:100%; margin:0 0 44px 0; padding:0 0 0 40px; text-align:left;
-    }
-    .t-item:nth-child(odd) .t-dot, .t-item:nth-child(even) .t-dot{left:9px; right:auto;}
+    .timeline{ padding:0 2px; }
+    .t-dot{ width:9px; height:9px; }
+    .t-item{ padding-bottom:34px; }
+    .t-item:nth-child(odd){ padding-right:14px; }
+    .t-item:nth-child(even){ padding-left:14px; }
+    .t-item h3{ font-size:1.12rem; margin-bottom:4px; }
+    .t-item p{ font-size:0.85rem; line-height:1.5; }
+  }
+  @media (max-width:400px){
+    .t-item:nth-child(odd){ padding-right:10px; }
+    .t-item:nth-child(even){ padding-left:10px; }
+    .t-item h3{ font-size:1.02rem; }
+    .t-item p{ font-size:0.78rem; line-height:1.48; }
   }
 
   /* RECEPTION */
@@ -631,6 +639,64 @@
   }
   #music-btn.playing{animation:musicSpin 3s linear infinite;}
   @keyframes musicSpin{ from{transform:rotate(0);} to{transform:rotate(360deg);} }
+
+  /* ================= GLOBAL MOBILE POLISH ================= */
+  @media (max-width:600px){
+    #site-nav{ padding:14px 18px; }
+    .nav-brand{ font-size:1.05rem; }
+    #music-btn{ width:44px; height:44px; bottom:16px; right:16px; font-size:1rem; }
+
+    .section{ padding:64px 20px; }
+    .eyebrow{ font-size:0.66rem; letter-spacing:0.28em; }
+    .divider{ margin:18px auto; }
+
+    .info-card{ padding:32px 22px; }
+    .info-card .date-big{ font-size:2rem; }
+    .info-card .venue{ font-size:1.3rem; }
+
+    .invite-card{ padding:34px 20px 28px; margin-top:26px; }
+    .invite-card .ic-quote{ font-size:1.1rem; margin:14px 0 20px; }
+    .invite-card .ic-name{ font-size:1.6rem; }
+
+    .hero-welcome{ margin-top:24px; }
+    .hero-welcome p{ font-size:0.92rem; }
+    .hero-date-block{ gap:22px; margin-top:16px; }
+
+    .hero-calendar{ padding:20px 14px; margin-top:26px; }
+    .hero-calendar .cal-row.dates .n{ width:34px; height:34px; font-size:0.95rem; }
+    .hero-calendar .cal-row.days .d{ width:34px; }
+
+    .cd-grid{ gap:8px; }
+    .cd-box{ width:70px; padding:16px 0; }
+    .cd-box .num{ font-size:1.9rem; }
+    .cd-box .lbl{ font-size:0.58rem; letter-spacing:0.14em; }
+
+    .venue-illustration{ margin-top:22px; }
+
+    .stay-card{ padding:22px 18px; }
+    .stay-card h3{ font-size:1.32rem; }
+    .stay-intro{ font-size:0.94rem; }
+    .stay-map iframe{ height:220px; }
+
+    .verse-mark{ font-size:2.1rem; }
+    .verse-text{ font-size:1.02rem; }
+
+    .btn{ padding:12px 26px; font-size:0.74rem; }
+
+    .masonry{ column-gap:12px; }
+    .g-item{ margin-bottom:12px; }
+
+    footer{ padding:34px 20px; }
+  }
+
+  @media (max-width:380px){
+    .section{ padding:52px 16px; }
+    .cd-box{ width:62px; padding:14px 0; }
+    .cd-box .num{ font-size:1.6rem; }
+    .cd-box .lbl{ font-size:0.52rem; }
+    .info-card{ padding:26px 16px; }
+    .stay-card{ padding:18px 14px; }
+  }
 </style>
 </head>
 <body class="locked">
