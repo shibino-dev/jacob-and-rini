@@ -295,59 +295,34 @@
   .hero-date-block .item .k{font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold-deep);}
   .hero-date-block .item .v{font-family:'Cormorant Garamond', serif; font-size:1.3rem; color:var(--ink); margin-top:2px;}
 
-  /* ARCH HERO — Moorish-style frame with floral crown and the reception photo */
-  .hero-arch-wrap{
-    position:relative; width:min(340px, 86vw); margin:0 auto;
-  }
-  .hero-arch{
-    position:relative; width:100%;
-    padding:56px 22px 26px;
-    border:1px solid var(--gold);
-    border-top-left-radius:170px 170px; border-top-right-radius:170px 170px;
-    border-bottom-left-radius:6px; border-bottom-right-radius:6px;
-    background:linear-gradient(180deg, var(--ivory), var(--paper));
-    box-shadow:var(--shadow);
-    overflow:hidden;
-  }
-  .hero-arch::before{
-    content:''; position:absolute; inset:9px;
-    border:1px solid var(--gold-pale);
-    border-top-left-radius:150px 150px; border-top-right-radius:150px 150px;
-    border-bottom-left-radius:3px; border-bottom-right-radius:3px;
-    pointer-events:none;
-  }
-  /* vine sits outside the clipped arch box so it can drape over the top edge and down the outer curve */
-  .hero-arch-vine{
-    position:absolute; top:-34px; left:0; width:100%; height:130px; z-index:3; pointer-events:none;
-  }
-  .hero-arch .hero-eyebrow, .hero-arch .hero-date-tiny, .hero-arch .hero-names, .hero-arch .scroll-down, .hero-arch .hero-arch-photo{
-    position:relative; z-index:2;
-  }
+  /* HERO — simple centered header, then the photo full-bleed and unframed, no arch/border/card around it */
+  .hero-top{ text-align:center; }
   .hero-date-tiny{
     font-size:0.95rem; letter-spacing:0.18em; color:var(--gold-deep); margin-top:6px;
     font-family:'Cormorant Garamond', serif;
   }
-  .hero-names--arch{ margin:12px 0 6px; font-size:clamp(2.2rem, 8vw, 2.8rem); }
+  .hero-names--arch{ margin:12px 0 6px; font-size:clamp(2.2rem, 9vw, 3.2rem); }
   .scroll-down{
-    display:flex; flex-direction:column; align-items:center; gap:4px; margin:6px 0 10px;
+    display:flex; flex-direction:column; align-items:center; gap:4px; margin:16px 0 4px;
   }
   .scroll-down span{ font-family:'Cormorant Garamond', serif; font-style:italic; font-size:0.95rem; color:var(--ink-soft); }
   .scroll-down svg{ animation:chevronBounce 1.8s ease-in-out infinite; }
-  .hero-arch-photo{
-    width:100%; aspect-ratio:4/5; margin-top:4px; border-radius:6px;
-    overflow:hidden; border:1px solid var(--gold-pale); box-shadow:0 10px 24px rgba(46,42,36,0.14);
-  }
-  .hero-arch-photo img{ width:100%; height:100%; object-fit:cover; display:block; object-position:center 12%; }
 
-  /* On phones, let the arch use more of the screen width so the photo isn't squeezed down */
-  @media (max-width:480px){
-    .hero-arch-wrap{ width:min(380px, 92vw); }
-    .hero-arch{ padding:48px 16px 22px; }
-    .hero-arch-photo{ aspect-ratio:3/4; }
+  /* the photo itself: no border, no card, no crop — just the whole image, sized to the
+     screen. On phones it runs edge-to-edge so it truly fills the phone screen. */
+  .hero-photo{
+    width:100%; margin-top:22px;
+    display:flex; align-items:center; justify-content:center;
   }
-  @media (max-width:360px){
-    .hero-arch-wrap{ width:94vw; }
-    .hero-arch{ padding:42px 12px 18px; }
+  .hero-photo img{ width:100%; height:auto; max-height:65vh; object-fit:contain; display:block; }
+  @media (max-width:600px){
+    .hero-photo{
+      width:100vw;
+      margin-left:calc(50% - 50vw);
+      margin-right:calc(50% - 50vw);
+      margin-top:18px;
+    }
+    .hero-photo img{ max-height:56vh; }
   }
 
   /* HERO WELCOME NOTE */
@@ -910,78 +885,19 @@
 
   <!-- HERO -->
   <section id="home">
-    <div class="hero-arch-wrap fade-up">
-      <svg class="hero-arch-vine" viewBox="0 0 340 110" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-        <defs>
-          <g id="bloom">
-            <ellipse cx="0" cy="-5.2" rx="3.1" ry="4.6" fill="var(--maroon)"/>
-            <ellipse cx="0" cy="-5.2" rx="3.1" ry="4.6" fill="var(--maroon)" transform="rotate(72)"/>
-            <ellipse cx="0" cy="-5.2" rx="3.1" ry="4.6" fill="var(--maroon)" transform="rotate(144)"/>
-            <ellipse cx="0" cy="-5.2" rx="3.1" ry="4.6" fill="var(--maroon)" transform="rotate(216)"/>
-            <ellipse cx="0" cy="-5.2" rx="3.1" ry="4.6" fill="var(--maroon)" transform="rotate(288)"/>
-            <circle cx="0" cy="0" r="2" fill="var(--gold)"/>
-          </g>
-          <g id="bud">
-            <circle cx="0" cy="0" r="2.6" fill="var(--gold)"/>
-          </g>
-          <g id="leaf">
-            <path d="M0,0 C4,-3.4 9,-3.4 12,0 C9,3.4 4,3.4 0,0 Z" fill="var(--gold-deep)" opacity="0.65"/>
-          </g>
-        </defs>
+    <div class="hero-top fade-up hero-intro">
+      <div class="hero-eyebrow eyebrow">Wedding Invitation</div>
+      <div class="hero-date-tiny">9 . 11 . 2026</div>
+      <h1 class="hero-names hero-names--arch">Jacob<span class="amp">&amp;</span>Rini</h1>
+    </div>
 
-        <!-- stems -->
-        <g fill="none" stroke="var(--gold)" stroke-width="1" stroke-linecap="round" opacity="0.7">
-          <path d="M170 16 C132 10 96 12 66 24 C46 32 30 46 20 66 C15 76 13 84 13 92"/>
-          <path d="M170 16 C208 10 244 12 274 24 C294 32 310 46 320 66 C325 76 327 84 327 92"/>
-        </g>
+    <div class="hero-photo fade-up hero-intro">
+      <img src="recep.jpg" alt="Jacob &amp; Rini">
+    </div>
 
-        <!-- apex cluster -->
-        <use href="#bloom" transform="translate(170,16) scale(1.35)"/>
-        <use href="#bloom" transform="translate(148,22) scale(1)"/>
-        <use href="#bloom" transform="translate(192,22) scale(1)"/>
-        <use href="#leaf" transform="translate(158,10) rotate(-20)"/>
-        <use href="#leaf" transform="translate(182,10) rotate(20) scale(-1,1)"/>
-        <use href="#bud" transform="translate(170,30)"/>
-
-        <!-- left cascade -->
-        <use href="#bloom" transform="translate(96,15) scale(0.9)"/>
-        <use href="#leaf" transform="translate(108,14) rotate(-10)"/>
-        <use href="#bloom" transform="translate(58,26) scale(1)"/>
-        <use href="#bud" transform="translate(78,20)"/>
-        <use href="#leaf" transform="translate(66,18) rotate(-35)"/>
-        <use href="#bloom" transform="translate(30,48) scale(0.9)"/>
-        <use href="#leaf" transform="translate(42,38) rotate(-45)"/>
-        <use href="#bud" transform="translate(20,60)"/>
-        <use href="#bloom" transform="translate(13,80) scale(0.75)"/>
-        <use href="#leaf" transform="translate(16,68) rotate(-70)"/>
-
-        <!-- right cascade (mirrored) -->
-        <use href="#bloom" transform="translate(244,15) scale(0.9)"/>
-        <use href="#leaf" transform="translate(232,14) rotate(10) scale(-1,1)"/>
-        <use href="#bloom" transform="translate(282,26) scale(1)"/>
-        <use href="#bud" transform="translate(262,20)"/>
-        <use href="#leaf" transform="translate(274,18) rotate(35) scale(-1,1)"/>
-        <use href="#bloom" transform="translate(310,48) scale(0.9)"/>
-        <use href="#leaf" transform="translate(298,38) rotate(45) scale(-1,1)"/>
-        <use href="#bud" transform="translate(320,60)"/>
-        <use href="#bloom" transform="translate(327,80) scale(0.75)"/>
-        <use href="#leaf" transform="translate(324,68) rotate(70) scale(-1,1)"/>
-      </svg>
-
-      <div class="hero-arch">
-        <div class="hero-eyebrow eyebrow">Wedding Invitation</div>
-        <div class="hero-date-tiny">9 . 11 . 2026</div>
-        <h1 class="hero-names hero-names--arch">Jacob<span class="amp">&amp;</span>Rini</h1>
-
-        <div class="scroll-down">
-          <span>Scroll down</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold-deep)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </div>
-
-        <div class="hero-arch-photo">
-          <img src="recep.jpg" alt="Jacob &amp; Rini">
-        </div>
-      </div>
+    <div class="scroll-down fade-up hero-intro">
+      <span>Scroll down</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold-deep)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
 
     <div class="hero-welcome fade-up">
@@ -1278,6 +1194,9 @@
       STATE = "OPENED";
       body.classList.add("opened");
       body.classList.remove("locked");
+      startScrollReveals(); /* only start watching for fade-ups once the site is actually visible, so
+                                 the hero content (names, recep photo) plays its entrance animation
+                                 instead of being marked "already seen" while hidden behind the envelope */
     }, revealDelay);
   }
 
@@ -1309,8 +1228,10 @@
     });
   }, {threshold:0.15, rootMargin:"0px 0px -8% 0px"});
 
-  document.querySelectorAll(".fade-up").forEach(function(el){ revealObserver.observe(el); });
-  document.querySelectorAll(".timeline, .hero-wave-wrap").forEach(function(el){ revealObserver.observe(el); });
+  function startScrollReveals(){
+    document.querySelectorAll(".fade-up").forEach(function(el){ revealObserver.observe(el); });
+    document.querySelectorAll(".timeline, .hero-wave-wrap").forEach(function(el){ revealObserver.observe(el); });
+  }
 
   /* measure the wavy schedule line's real length so the draw-in animation
      always ends exactly at the heart, instead of using a guessed length */
@@ -1432,6 +1353,7 @@
   stagger(".hero-date-block .item", 90);
   stagger(".g-item", 80);
   stagger(".stay-grid .stay-card", 100);
+  stagger("#home .hero-intro", 180);
 
   /* ---------------- COUNTDOWN ---------------- */
   var weddingDate = new Date("2026-11-09T12:00:00+05:30").getTime();
