@@ -403,6 +403,20 @@
 .invite-card.dark .ic-name{ color:var(--paper); }
 .invite-card.dark .ic-parents{ color:rgba(250,245,234,0.75); }
 .invite-card.dark .eyebrow, .invite-card.dark .ic-foot{ color:var(--gold-pale); }
+
+/* maroon glass version — semi-transparent deep maroon with white text */
+.invite-card.maroon-glass{
+  background:rgba(87,7,18,0.82);
+  border-color:var(--gold);
+  -webkit-backdrop-filter:blur(6px);
+  backdrop-filter:blur(6px);
+}
+.invite-card.maroon-glass::before{ border-color:rgba(255,255,255,0.28); }
+.invite-card.maroon-glass .ic-quote{ color:#ffffff; }
+.invite-card.maroon-glass .ic-name{ color:#ffffff; }
+.invite-card.maroon-glass .ic-parents{ color:rgba(255,255,255,0.82); }
+.invite-card.maroon-glass .ic-amp{ color:var(--gold); }
+.invite-card.maroon-glass .eyebrow, .invite-card.maroon-glass .ic-foot{ color:var(--gold-pale); }
   /* HERO CALENDAR */
   .hero-calendar{
     max-width:360px; margin:34px auto 0; padding:24px 16px;
@@ -848,7 +862,7 @@
       <div class="sign">With love, Jacob &amp; Rini</div>
     </div>
 
-    <div class="invite-card">
+    <div class="invite-card maroon-glass">
   <!-- <div class="eyebrow">Wedding Invitation</div> -->
   <p class="ic-quote">"United in love, surrounded by grace,<br>we invite you to witness the beginning of our forever."</p>
 
