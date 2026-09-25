@@ -91,10 +91,10 @@
     margin-bottom:6px;
   }
   .fade-up{
-    opacity:0; transform:translateY(26px);
-    transition:opacity 0.9s ease, transform 0.9s ease;
+    opacity:0; transform:translateY(26px) scale(0.97);
+    transition:opacity 1s ease, transform 1s ease;
   }
-  .fade-up.in-view{opacity:1; transform:translateY(0);}
+  .fade-up.in-view{opacity:1; transform:translateY(0) scale(1);}
 
   /* ---------- CROSS MOTIF (Mar Thoma / St. Thomas Cross, subject-grounded ornament) ---------- */
   .cross-motif{width:26px; height:26px; opacity:0.85;}
@@ -321,8 +321,10 @@
       margin-left:calc(50% - 50vw);
       margin-right:calc(50% - 50vw);
       margin-top:18px;
+      height:82vh;
+      overflow:hidden;
     }
-    .hero-photo img{ max-height:56vh; }
+    .hero-photo img{ width:100%; height:100%; max-height:none; object-fit:cover; object-position:center 25%; }
   }
 
   /* HERO WELCOME NOTE */
@@ -900,13 +902,13 @@
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold-deep)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
 
-    <div class="hero-welcome fade-up">
+    <div class="hero-welcome fade-up hero-intro">
       <div class="to-line">Dear Family and Friends!</div>
       <p>We are so happy to invite you to share this meaningful day with us. Your presence, prayers and blessings will make our wedding even more special.</p>
       <div class="sign">With love, Jacob &amp; Rini</div>
     </div>
 
-    <div class="invite-card oxford-glossy fade-up">
+    <div class="invite-card oxford-glossy fade-up hero-intro">
   <!-- <div class="eyebrow">Wedding Invitation</div> -->
   <p class="ic-quote">"United in love, surrounded by grace,<br>we invite you to witness the beginning of our forever."</p>
 
@@ -920,7 +922,7 @@
 
   <div class="ic-foot">9 November 2026 · 12:00 PM</div>
 </div>
-    <div class="hero-calendar fade-up">
+    <div class="hero-calendar fade-up hero-intro">
       <div class="cal-month">November 2026</div>
       <div class="cal-row days">
         <div class="d">Mon</div><div class="d">Tue</div><div class="d">Wed</div><div class="d">Thu</div><div class="d">Fri</div><div class="d">Sat</div><div class="d">Sun</div>
@@ -1353,7 +1355,7 @@
   stagger(".hero-date-block .item", 90);
   stagger(".g-item", 80);
   stagger(".stay-grid .stay-card", 100);
-  stagger("#home .hero-intro", 180);
+  stagger("#home .hero-intro", 220);
 
   /* ---------------- COUNTDOWN ---------------- */
   var weddingDate = new Date("2026-11-09T12:00:00+05:30").getTime();
