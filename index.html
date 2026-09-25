@@ -598,36 +598,49 @@
   /* OUR STORY */
   #story{background:var(--paper);}
   .timeline{max-width:640px; margin:50px auto 0; position:relative;}
-  .timeline::before{
-    content:''; position:absolute; left:50%; top:0; width:1px; background:var(--gold-pale); transform:translateX(-50%);
-    height:0; transition:height 1.6s ease;
+
+  /* wavy connecting line + heart, same idea as the hero schedule: JS measures the
+     real dot positions and draws a smooth gold curve through them that reveals
+     itself as you scroll, ending in a heart below the last milestone. */
+  .story-wave{ position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; overflow:visible; }
+  .story-wave .wave-line{
+    fill:none; stroke:var(--gold); stroke-width:1.3; opacity:0.8;
+    stroke-dasharray:var(--story-path-len, 3000);
+    stroke-dashoffset:var(--story-path-len, 3000);
+    transition:stroke-dashoffset 2.6s ease;
   }
-  .timeline.in-view::before{ height:100%; }
-  .t-item{position:relative; padding:0 0 60px 0; width:50%;}
-  .t-item:nth-child(odd){margin-right:50%; padding-right:44px; text-align:right;}
-  .t-item:nth-child(even){margin-left:50%; padding-left:44px; text-align:left;}
+  .timeline.in-view .story-wave .wave-line{ stroke-dashoffset:0; }
+  .story-wave .story-heart{ fill:var(--gold-maroon); opacity:0.9; }
+
+  .t-item{position:relative; z-index:1; padding:0 0 60px 0; width:50%;}
+  .t-item:nth-child(odd){margin-right:50%; padding-right:72px; text-align:right;}
+  .t-item:nth-child(even){margin-left:50%; padding-left:72px; text-align:left;}
   .t-dot{
     position:absolute; top:2px; width:11px; height:11px; border-radius:50%;
     background:var(--gold); border:2px solid var(--paper); box-shadow:0 0 0 1px var(--gold);
-    transform:scale(0); transition:transform 0.5s ease;
+    transform:scale(0); transition:transform 0.5s ease; z-index:2;
   }
   .t-item.in-view .t-dot{ transform:scale(1); }
-  .t-item:nth-child(odd) .t-dot{right:-6px;}
-  .t-item:nth-child(even) .t-dot{left:-6px;}
+  .t-item:nth-child(odd) .t-dot{right:-56px;}
+  .t-item:nth-child(even) .t-dot{left:-56px;}
   .t-item h3{font-size:1.35rem; color:var(--maroon); font-weight:500; margin-bottom:6px;}
   .t-item p{color:var(--ink-soft); font-size:0.98rem;}
   @media (max-width:640px){
     .timeline{ padding:0 2px; }
     .t-dot{ width:9px; height:9px; }
     .t-item{ padding-bottom:34px; }
-    .t-item:nth-child(odd){ padding-right:14px; }
-    .t-item:nth-child(even){ padding-left:14px; }
+    .t-item:nth-child(odd){ padding-right:32px; }
+    .t-item:nth-child(even){ padding-left:32px; }
+    .t-item:nth-child(odd) .t-dot{right:-22px;}
+    .t-item:nth-child(even) .t-dot{left:-22px;}
     .t-item h3{ font-size:1.12rem; margin-bottom:4px; }
     .t-item p{ font-size:0.85rem; line-height:1.5; }
   }
   @media (max-width:400px){
-    .t-item:nth-child(odd){ padding-right:10px; }
-    .t-item:nth-child(even){ padding-left:10px; }
+    .t-item:nth-child(odd){ padding-right:22px; }
+    .t-item:nth-child(even){ padding-left:22px; }
+    .t-item:nth-child(odd) .t-dot{right:-15px;}
+    .t-item:nth-child(even) .t-dot{left:-15px;}
     .t-item h3{ font-size:1.02rem; }
     .t-item p{ font-size:0.78rem; line-height:1.48; }
   }
@@ -1091,6 +1104,7 @@
     <div class="eyebrow fade-up">Our Journey</div>
     <h2 class="section-title fade-up">Our Story</h2>
     <div class="timeline">
+      <svg class="story-wave" aria-hidden="true"><path class="wave-line" d=""></path><path class="story-heart" d=""></path></svg>
       <div class="t-item fade-up"><div class="t-dot"></div>
         <h3>How We Met</h3>
         <p>It all began with a little help from a matrimony website! Our big brother Aravindettan - a dear colleague and close friend who we've always considered family - along with Hari and a few of our closest friends, took it upon themselves to look even harder than we did, creating profiles and reaching out with more excitement than we could have asked for. Thanks to their loving efforts, two profiles crossed paths, curiosity led to a meeting, and one conversation led to another. As we shared our dreams, values, and hopes, we discovered something truly special. What seemed like a simple coincidence slowly felt like God's beautiful way of bringing two hearts together — with a little extra help from the people who love us most.</p>
@@ -1296,6 +1310,66 @@
     var realLen = Math.ceil(waveLine.getTotalLength()) + 4; /* tiny buffer so the tip fully clears */
     waveLine.style.setProperty("--path-len", realLen);
   }
+
+  /* ---------------- OUR STORY: wavy line threaded through the real dot positions, ending in a heart ---------------- */
+  function buildStoryWave(){
+    var timeline = document.querySelector("#story .timeline");
+    var svg = document.querySelector("#story .story-wave");
+    var line = document.querySelector("#story .story-wave .wave-line");
+    var heart = document.querySelector("#story .story-wave .story-heart");
+    var dots = document.querySelectorAll("#story .t-dot");
+    if(!timeline || !svg || !line || !dots.length) return;
+
+    var tlRect = timeline.getBoundingClientRect();
+    var w = timeline.offsetWidth;
+    var h = timeline.offsetHeight;
+    if(w < 1 || h < 1) return;
+    svg.setAttribute("viewBox", "0 0 " + w + " " + h);
+    svg.setAttribute("width", w);
+    svg.setAttribute("height", h);
+
+    var pts = [];
+    dots.forEach(function(dot){
+      var r = dot.getBoundingClientRect();
+      pts.push({
+        x: r.left + r.width / 2 - tlRect.left,
+        y: r.top + r.height / 2 - tlRect.top
+      });
+    });
+
+    /* smooth S-curve through each point: vertical tangents at the dots,
+       so the line eases left/right between them, just like the hero wave */
+    var d = "M" + pts[0].x + "," + pts[0].y;
+    for(var i = 1; i < pts.length; i++){
+      var midY = (pts[i - 1].y + pts[i].y) / 2;
+      d += " C" + pts[i - 1].x + "," + midY + " " + pts[i].x + "," + midY + " " + pts[i].x + "," + pts[i].y;
+    }
+    var last = pts[pts.length - 1];
+    var heartCx = last.x;
+    var heartTipY = last.y + 40;
+    d += " C" + last.x + "," + (last.y + 20) + " " + heartCx + "," + (heartTipY - 14) + " " + heartCx + "," + heartTipY;
+    line.setAttribute("d", d);
+
+    var hs = 8; /* heart half-size */
+    heart.setAttribute("d",
+      "M" + heartCx + "," + (heartTipY + hs + 3) +
+      " C" + (heartCx - hs) + "," + (heartTipY - 3) + " " + (heartCx - hs - 2) + "," + (heartTipY + hs - 5) + " " + heartCx + "," + (heartTipY + hs + 12) +
+      " C" + (heartCx + hs + 2) + "," + (heartTipY + hs - 5) + " " + (heartCx + hs) + "," + (heartTipY - 3) + " " + heartCx + "," + (heartTipY + hs + 3) + " Z"
+    );
+
+    if(line.getTotalLength){
+      var len = Math.ceil(line.getTotalLength()) + 4;
+      line.style.setProperty("--story-path-len", len);
+    }
+  }
+
+  buildStoryWave();
+  window.addEventListener("load", buildStoryWave);
+  var storyResizeTimer;
+  window.addEventListener("resize", function(){
+    clearTimeout(storyResizeTimer);
+    storyResizeTimer = setTimeout(buildStoryWave, 200);
+  });
 
   /* small staggered delay for groups of fade-up items sitting side by side or stacked closely,
      so they don't all pop at exactly the same instant */
