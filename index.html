@@ -344,6 +344,17 @@
   }
   .hero-arch-photo img{ width:100%; height:100%; object-fit:cover; display:block; object-position:center 12%; }
 
+  /* On phones, let the arch use more of the screen width so the photo isn't squeezed down */
+  @media (max-width:480px){
+    .hero-arch-wrap{ width:min(380px, 92vw); }
+    .hero-arch{ padding:48px 16px 22px; }
+    .hero-arch-photo{ aspect-ratio:3/4; }
+  }
+  @media (max-width:360px){
+    .hero-arch-wrap{ width:94vw; }
+    .hero-arch{ padding:42px 12px 18px; }
+  }
+
   /* HERO WELCOME NOTE */
   .hero-welcome{
     max-width:400px; margin:30px auto 0; text-align:center;
@@ -354,7 +365,44 @@
   }
   .hero-welcome p{ font-size:0.98rem; color:var(--ink-soft); }
   .hero-welcome .sign{ margin-top:14px; font-family:'Cormorant Garamond', serif; font-size:1.05rem; color:var(--gold-deep); }
+/* HERO INVITATION CARD */
+.invite-card{
+  position:relative; max-width:400px; margin:34px auto 0; padding:44px 28px 40px;
+  border:1px solid var(--gold); border-radius:14px;
+  background:linear-gradient(180deg, var(--paper), var(--ivory));
+  box-shadow:var(--shadow); text-align:center;
+  opacity:0; animation:heroIn 1.2s ease forwards 2.3s;
+}
+.invite-card::before{
+  content:''; position:absolute; inset:8px; border:1px solid var(--gold-pale);
+  border-radius:8px; pointer-events:none;
+}
+.invite-card .ic-quote{
+  font-family:'Cormorant Garamond', serif; font-style:italic;
+  font-size:1.3rem; line-height:1.7; color:var(--ink); margin:16px 0 26px;
+}
+.invite-card .ic-name{
+  font-family:'Cormorant Garamond', serif; font-weight:600;
+  font-size:1.9rem; color:var(--maroon); line-height:1.1;
+}
+.invite-card .ic-parents{
+  font-size:0.92rem; color:var(--ink-soft); margin-top:6px; line-height:1.5;
+}
+.invite-card .ic-amp{
+  font-family:'Alex Brush', cursive; font-size:2.2rem; color:var(--gold); margin:14px 0;
+}
+.invite-card .ic-foot{
+  margin-top:26px; font-size:0.72rem; letter-spacing:0.28em;
+  text-transform:uppercase; color:var(--gold-deep);
+}
 
+/* optional dark version, like the reel: add class "dark" to the card */
+.invite-card.dark{ background:var(--maroon); border-color:var(--gold); }
+.invite-card.dark::before{ border-color:rgba(203,217,236,0.3); }
+.invite-card.dark .ic-quote{ color:var(--ivory); }
+.invite-card.dark .ic-name{ color:var(--paper); }
+.invite-card.dark .ic-parents{ color:rgba(250,245,234,0.75); }
+.invite-card.dark .eyebrow, .invite-card.dark .ic-foot{ color:var(--gold-pale); }
   /* HERO CALENDAR */
   .hero-calendar{
     max-width:360px; margin:34px auto 0; padding:24px 16px;
@@ -734,6 +782,20 @@
       <div class="sign">With love, Jacob &amp; Rini</div>
     </div>
 
+    <div class="invite-card">
+  <!-- <div class="eyebrow">Wedding Invitation</div> -->
+  <p class="ic-quote">"United in love, surrounded by grace,<br>we invite you to witness the beginning of our forever."</p>
+
+  <div class="ic-name">Jacob</div>
+  <div class="ic-parents">S/o Mr. Abraham P Jacob &amp; Mrs. Mariamma P Abraham<br>Pathanamthitta</div>
+
+  <div class="ic-amp">&amp;</div>
+
+  <div class="ic-name">Rini</div>
+  <div class="ic-parents">D/o Mr. Varghese George &amp; Mrs. Mary Varghese<br>Trivandram</div>
+
+  <div class="ic-foot">9 November 2026 · 12:00 PM</div>
+</div>
     <div class="hero-calendar">
       <div class="cal-month">November 2026</div>
       <div class="cal-row days">
