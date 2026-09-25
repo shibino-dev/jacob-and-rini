@@ -534,11 +534,13 @@
   .hs-time{ font-family:'Cormorant Garamond', serif; font-size:1.5rem; color:var(--gold-maroon); }
   .hs-label{ font-size:0.85rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-soft); margin-top:2px; line-height:1.4; }
 
-  /* the connecting wave line draws itself in as it enters view */
+  /* the connecting wave line draws itself in as it enters view.
+     --path-len is set from JS to the path's real measured length, so the
+     line always finishes drawing exactly at the heart, however long it is. */
   .wave-path path.wave-line{
-    stroke-dasharray:2600;
-    stroke-dashoffset:2600;
-    transition:stroke-dashoffset 2.4s ease;
+    stroke-dasharray:var(--path-len, 4200);
+    stroke-dashoffset:var(--path-len, 4200);
+    transition:stroke-dashoffset 2.6s ease;
   }
   .hero-wave-wrap.in-view .wave-path path.wave-line{ stroke-dashoffset:0; }
   .wave-path circle, .wave-path path:not(.wave-line){
@@ -955,8 +957,7 @@
     <div class="hero-welcome fade-up">
       <div class="to-line">Dear Family and Friends!</div>
       <p>We are so happy to invite you to share this meaningful day with us. Your presence, prayers and blessings will make our wedding even more special.</p>
-      <div class="sign">With love,</div>
-      <div class="sign">Jacob &amp; Rini</div>
+      <div class="sign">With love, Jacob &amp; Rini</div>
     </div>
 
     <div class="invite-card oxford-glossy fade-up">
@@ -1287,6 +1288,14 @@
 
   document.querySelectorAll(".fade-up").forEach(function(el){ revealObserver.observe(el); });
   document.querySelectorAll(".timeline, .hero-wave-wrap").forEach(function(el){ revealObserver.observe(el); });
+
+  /* measure the wavy schedule line's real length so the draw-in animation
+     always ends exactly at the heart, instead of using a guessed length */
+  var waveLine = document.querySelector(".wave-path path.wave-line");
+  if(waveLine && waveLine.getTotalLength){
+    var realLen = Math.ceil(waveLine.getTotalLength()) + 4; /* tiny buffer so the tip fully clears */
+    waveLine.style.setProperty("--path-len", realLen);
+  }
 
   /* small staggered delay for groups of fade-up items sitting side by side or stacked closely,
      so they don't all pop at exactly the same instant */
