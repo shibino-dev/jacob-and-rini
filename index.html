@@ -510,7 +510,7 @@
   .hs-item.side-l{ left:30px; text-align:left; }
   .hs-time{ font-family:'Cormorant Garamond', serif; font-size:1.5rem; color:var(--gold-maroon); }
   .hs-label{ font-size:0.85rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-soft); margin-top:2px; line-height:1.4; }
-
+  .ht-label{ font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-maroon); margin-top:2px; line-height:1.4; }
   /* the connecting wave line draws itself in as it enters view.
      --path-len is set from JS to the path's real measured length, so the
      line always finishes drawing exactly at the heart, however long it is. */
@@ -618,7 +618,7 @@
   .t-item:nth-child(even) .t-dot{left:70px;}
   .t-item h3{font-size:1.35rem; color:var(--maroon); font-weight:500; margin-bottom:6px;}
   .t-item p{color:var(--ink-soft); font-size:0.98rem;}
-  @media (max-width:640px){
+  @media (max-width:9000px){
     .timeline{ padding:0 2px; }
     .t-dot{ width:9px; height:9px; top:20px; }
     .t-item{ padding-bottom:34px; }
@@ -847,8 +847,8 @@
   </div>
 
   <div class="tap-reveal-label">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-maroon)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-    <!-- <span>Tap to Open</span> -->
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-maroon)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    <span style="font-size:1.1em;">Tap to Open</span>
   </div>
 
   <div class="envelope-invite-text">
@@ -888,7 +888,7 @@
   <!-- HERO -->
   <section id="home">
     <div class="hero-top fade-up hero-intro">
-      <div class="hero-eyebrow eyebrow">Wedding Invitation</div>
+      <div class="hero-eyebrow eyebrow">You are invited!!</div>
       <div class="hero-date-tiny">9 . 11 . 2026</div>
       <h1 class="hero-names hero-names--arch">Jacob<span class="amp">&amp;</span>Rini</h1>
     </div>
@@ -905,7 +905,8 @@
     <div class="hero-welcome fade-up hero-intro">
       <div class="to-line">Dear Family and Friends!</div>
       <p>We are so happy to invite you to share this meaningful day with us. Your presence, prayers and blessings will make our wedding even more special.</p>
-      <div class="sign">With love, Jacob &amp; Rini</div>
+      <div class="sign">With love, </div>
+      <div class="sign">Jacob &amp; Rini</div>
     </div>
 
     <div class="invite-card oxford-glossy fade-up hero-intro">
@@ -1023,27 +1024,29 @@
       <svg class="story-wave" aria-hidden="true"><path class="road-bed" d=""></path><path class="wave-line" d=""></path><path class="story-arrow" d=""></path></svg>
       <div class="t-item fade-up"><div class="t-dot"></div>
         <div class="t-card">
-        <h3>How We Met</h3>
-        <p>It all began with a little help from a matrimony website! Our big brother Aravindettan - a dear colleague and close friend who we've always considered family - along with Hari and a few of our closest friends, took it upon themselves to look even harder than we did, creating profiles and reaching out with more excitement than we could have asked for. Thanks to their loving efforts, two profiles crossed paths, curiosity led to a meeting, and one conversation led to another. As we shared our dreams, values, and hopes, we discovered something truly special. What seemed like a simple coincidence slowly felt like God's beautiful way of bringing two hearts together — with a little extra help from the people who love us most.</p>
-        </div>
-      </div>
-      <div class="t-item fade-up"><div class="t-dot"></div>
-        <div class="t-card">
-        <h3>Our Journey</h3>
-        <p>As our conversations grew, so did something beautiful between us. We shared our dreams, prayers, and hopes, slowly discovering a future we could build together. With every step, we felt God gently guiding our journey—from two profiles and a first meeting to a relationship rooted in faith, understanding, and love.
+        <h3 class="ht-label">Where It All Began</h3>
+        <p>It all began with a little help from a matrimony website and a few very special people. Aravindettan, a dear friend who has always been like family, along with Hari and a few close friends, helped bring two paths together. What started with two profiles and a simple introduction blossomed into something beautiful. Looking back, we see it not as coincidence, but as God’s gentle plan, bringing two hearts together at the right time.
 </p>
         </div>
       </div>
       <div class="t-item fade-up"><div class="t-dot"></div>
         <div class="t-card">
-        <h3>The Engagement</h3>
-        <p>With our hearts full of hope, we shared our journey with our families, seeking their love, prayers, and blessings. By God's grace, their hearts too embraced our union, and both families came together in February 2026 to take this beautiful journey forward. With God's providence and our families' blessings, 9 November 2026 was chosen as the day our forever begins.</p>
+        <h3 class="ht-label">A Journey of Grace</h3>
+        <p>As our conversations grew, so did a beautiful bond between us. Through shared dreams, prayers, and hopes, we discovered a future together. With every step, we felt God gently guiding our journey, leading us from a simple meeting to a relationship rooted in faith, understanding, and love.
+</p>
         </div>
       </div>
       <div class="t-item fade-up"><div class="t-dot"></div>
         <div class="t-card">
-        <h3>The Wedding Day</h3>
-        <p>What began as a simple introduction became a beautiful journey we believe God had lovingly written for us. With grateful hearts, we step into this new chapter, trusting the One who brought us together and praying for His guidance in every step of the journey ahead. 🤍</p>
+        <h3 class="ht-label">A Promise of Forever</h3>
+        <p>With hopeful hearts, we shared our journey with our families and sought their prayers and blessings. By God’s grace, both families joyfully came together in February 2026, and 9 November 2026 was chosen as the day our forever begins.
+</p> </div>
+      </div>
+      <div class="t-item fade-up"><div class="t-dot"></div>
+        <div class="t-card">
+        <h3 class="ht-label">The Day We Await</h3>
+        <p>With grateful hearts, we step into a new chapter, trusting in God’s plan that brought us together. We pray for His grace and guidance as we begin this beautiful journey of life together. 🤍
+</p>
         </div>
       </div>
     </div>
