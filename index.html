@@ -49,13 +49,16 @@
     --shadow: 0 20px 60px rgba(38,48,63,0.16);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
+  html{scroll-behavior:smooth; -webkit-text-size-adjust:100%; text-size-adjust:100%;}
+  html, body{max-width:100%; overflow-x:hidden;}
   body{
     font-family:'EB Garamond', serif;
     background:var(--ivory);
     color:var(--ink);
     overflow-x:hidden;
     line-height:1.6;
+    overflow-wrap:break-word;
+    word-wrap:break-word;
   }
   body.locked{overflow:hidden; height:100vh;}
   h1,h2,h3,.display{font-family:'Cormorant Garamond', serif;}
@@ -217,6 +220,12 @@
     }
     body.opening .seal-wrap{animation-duration:0.2s !important;}
     .fade-up{ transition-duration:0.25s !important; transform:none !important; }
+    .wave-path path.wave-line,
+    .story-wave .road-bed,
+    .story-wave .wave-line{ transition-duration:0.3s !important; }
+    .t-dot{ transition-duration:0.2s !important; }
+    #music-btn.playing{ animation:none !important; }
+    .scroll-down svg, .tap-reveal-label svg{ animation:none !important; }
   }
 
   @media (max-width:520px){
@@ -247,26 +256,26 @@
     padding:16px 28px;
   }
   .nav-brand{font-family:'Cormorant Garamond', serif; font-size:1.15rem; color:var(--maroon); letter-spacing:0.05em;}
-  .nav-links{display:flex; gap:30px; list-style:none;}
+  .nav-links{display:flex; gap:26px; list-style:none;}
   .nav-links a{
     font-size:0.82rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-soft);
-    position:relative; padding-bottom:4px;
+    position:relative; padding:10px 2px; display:inline-block;
   }
   .nav-links a::after{
     content:''; position:absolute; left:0; bottom:0; height:1px; width:0; background:var(--gold-deep);
     transition:width 0.3s ease;
   }
   .nav-links a:hover::after{width:100%;}
-  .hamburger{display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:8px;}
+  .hamburger{display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:12px; min-width:44px; min-height:44px; align-items:center; justify-content:center;}
   .hamburger span{width:24px; height:1.5px; background:var(--ink);}
   .mobile-menu{
     display:none; position:fixed; inset:0; z-index:300;
     background:var(--ivory);
-    flex-direction:column; align-items:center; justify-content:center; gap:34px;
+    flex-direction:column; align-items:center; justify-content:center; gap:28px;
   }
   .mobile-menu.open{display:flex;}
-  .mobile-menu a{font-family:'Cormorant Garamond', serif; font-size:1.6rem; color:var(--maroon);}
-  .mobile-close{position:absolute; top:24px; right:26px; font-size:1.6rem; background:none; border:none; color:var(--ink); cursor:pointer;}
+  .mobile-menu a{font-family:'Cormorant Garamond', serif; font-size:1.6rem; color:var(--maroon); padding:10px 20px; display:inline-block;}
+  .mobile-close{position:absolute; top:18px; right:18px; font-size:1.6rem; background:none; border:none; color:var(--ink); cursor:pointer; width:44px; height:44px; display:flex; align-items:center; justify-content:center;}
   @media (max-width:820px){
     .nav-links{display:none;}
     .hamburger{display:flex;}
@@ -542,7 +551,8 @@
   .info-card .officiant{margin-top:22px; font-size:0.95rem; color:var(--ink-soft);}
   .info-card .officiant strong{display:block; font-family:'Cormorant Garamond', serif; font-size:1.15rem; color:var(--maroon); margin-top:2px; font-weight:500;}
   .btn{
-    display:inline-block; margin-top:26px; padding:13px 34px;
+    display:inline-flex; align-items:center; justify-content:center; min-height:44px;
+    margin-top:26px; padding:13px 34px;
     border:1px solid var(--gold-deep); color:var(--gold-deep);
     font-size:0.78rem; letter-spacing:0.18em; text-transform:uppercase;
     border-radius:999px; transition:all 0.3s ease; cursor:pointer; background:none;
@@ -732,7 +742,8 @@
   .stay-card li svg{flex-shrink:0; margin-top:3px;}
   .stay-actions{display:flex; gap:12px; flex-wrap:wrap;}
   .stay-btn{
-    flex:1; min-width:150px; text-align:center; padding:12px 18px; border-radius:999px;
+    flex:1; min-width:150px; min-height:44px; display:flex; align-items:center; justify-content:center;
+    text-align:center; padding:12px 18px; border-radius:999px;
     font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase; cursor:pointer; transition:all 0.3s ease;
   }
   .stay-btn.primary{background:var(--gold-pale); color:var(--maroon); border:1px solid var(--gold-pale);}
@@ -817,6 +828,44 @@
     .info-card{ padding:26px 16px; }
     .stay-card{ padding:18px 14px; }
   }
+
+  /* the hero schedule ribbon uses a fixed 140px item width, which is too wide for the
+     smallest phones — narrow the boxes and pull them in from the edges so nothing
+     runs past the container or overlaps the wave line drawn behind it */
+  @media (max-width:420px){
+    .hero-wave-wrap{ max-width:94vw; }
+    .hs-item{ width:122px; padding:3px 6px; }
+    .hs-item.side-r{ right:12px; }
+    .hs-item.side-l{ left:12px; }
+    .hs-time{ font-size:1.2rem; }
+    .hs-label, .ht-label{ font-size:0.74rem; letter-spacing:0.06em; }
+  }
+  @media (max-width:340px){
+    .hs-item{ width:104px; }
+    .hero-calendar .cal-row.dates .n{ width:30px; height:30px; font-size:0.85rem; }
+    .hero-calendar .cal-row.days .d{ width:30px; font-size:0.56rem; }
+  }
+
+  /* landscape phones (short viewport height) — avoid an oversized, cramped hero and
+     an overly tall countdown row when there is little vertical room to work with */
+  @media (max-height:480px) and (orientation:landscape){
+    #home{ min-height:auto; padding:56px 24px 40px; }
+    .hero-photo{ margin-top:14px; height:auto !important; }
+    .hero-photo img{ max-height:42vh !important; height:auto !important; object-fit:contain !important; }
+    .seal-wrap{ top:46%; }
+    .seal{ width:56px; height:56px; }
+    .tap-reveal-label{ top:64%; }
+    .envelope-invite-text{ top:88%; }
+    .cd-grid{ margin-top:20px; }
+  }
+
+  /* light tablet refinement — keep the same look, just give the invite card and
+     gallery a touch more breathing room between the phone and desktop breakpoints */
+  @media (min-width:601px) and (max-width:1024px){
+    .invite-card{ max-width:440px; }
+    .info-card{ max-width:600px; }
+    .masonry{ columns:3 240px; }
+  }
 </style>
 </head>
 <body class="locked">
@@ -895,7 +944,7 @@
     </div>
 
     <div class="hero-photo fade-up hero-intro">
-      <img src="recep2.jpg" alt="Jacob &amp; Rini">
+      <img src="recep2.jpg" alt="Jacob &amp; Rini on their wedding day" fetchpriority="high">
     </div>
 
     <div class="scroll-down fade-up hero-intro">
@@ -966,7 +1015,7 @@
       
     </div>
     <div class="hero-photo fade-up hero-intro">
-      <img src="heart1.jpg" alt="Jacob &amp; Rini">
+      <img src="heart1.jpg" alt="Jacob &amp; Rini" loading="lazy">
     </div>
     
 <br/>
@@ -991,7 +1040,7 @@
       <div class="time">12:00 PM</div>
       <div class="divider"><svg class="cross-motif" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.4"><path d="M12 2v20M4 8h16M6 14h12"/></svg></div>
       <div class="venue">St. George Orthodox Church<br>Mylapra</div>
-      <div class="venue-illustration fade-up has-photo"><img src="church.jpg" alt="St. George Orthodox Church, Mylapra">
+      <div class="venue-illustration fade-up has-photo"><img src="church.jpg" alt="St. George Orthodox Church, Mylapra" loading="lazy">
 </div>      
 <div class="officiant">
         Solemnized by
@@ -1031,7 +1080,7 @@
       <div class="t-item fade-up"><div class="t-dot"></div>
         <div class="t-card">
         <h3 class="ht-label">Where It All Began</h3>
-        <p>It all began with a little help from a matrimony website and a few very special people. Aravindettan, who has always been like an elder brother to us, along with Hari and a few close friends, helped bring two paths together. What started with two profiles and a simple introduction blossomed into something beautiful. Looking back, we see it not as coincidence, but as God’s gentle plan, bringing two hearts together at the right time.
+        <p>It all began with a little help from a matrimony website and a few very special people. Aravindettan, who has always been like an elder brother to us, along with Hari and a few close friends, helped bring two paths together. What started with two profiles and a simple introduction blossomed into something beautiful. Looking back, we see it not as coincidence, but as God's gentle plan, bringing two hearts together at the right time.
 
 </p>
         </div>
@@ -1046,13 +1095,13 @@
       <div class="t-item fade-up"><div class="t-dot"></div>
         <div class="t-card">
         <h3 class="ht-label">A Promise of Forever</h3>
-        <p>With hopeful hearts, we shared our journey with our families and sought their prayers and blessings. By God’s grace, both families joyfully came together in February 2026, and 9 November 2026 was chosen as the day our forever begins.
+        <p>With hopeful hearts, we shared our journey with our families and sought their prayers and blessings. By God's grace, both families joyfully came together in February 2026, and 9 November 2026 was chosen as the day our forever begins.
 </p> </div>
       </div>
       <div class="t-item fade-up"><div class="t-dot"></div>
         <div class="t-card">
         <h3 class="ht-label">The Day We Await</h3>
-        <p>With grateful hearts, we step into a new chapter, trusting in God’s plan that brought us together. We pray for His grace and guidance as we begin this beautiful journey of life together. 🤍
+        <p>With grateful hearts, we step into a new chapter, trusting in God's plan that brought us together. We pray for His grace and guidance as we begin this beautiful journey of life together. 🤍
 </p>
         </div>
       </div>
@@ -1064,12 +1113,12 @@
     <div class="eyebrow fade-up">Our Wedding Story, About to Begin</div>
     <h2 class="section-title fade-up">Sacred Moments We Await</h2>
     <div class="masonry" id="masonry">
-      <div class="g-item fade-up" data-img="images/rings.jpg"><img src="rings.jpg" alt="Jacob & Rini"></div>
-      <div class="g-item fade-up" data-img="images/tying_the_knot.jpg"><img src="manthrak.jpg" alt="Tying the knot"></div>
+      <div class="g-item fade-up" data-img="images/rings.jpg"><img src="rings.jpg" alt="Jacob &amp; Rini - wedding rings" loading="lazy"></div>
+      <div class="g-item fade-up" data-img="images/tying_the_knot.jpg"><img src="manthrak.jpg" alt="Jacob &amp; Rini - tying the knot" loading="lazy"></div>
       <!-- <div class="g-item fade-up" data-img="images/mothiramvazhvu.jpg"><img src="thirdport.jpg" alt="Mothiram Vazhvu"></div> -->
    
-      <div class="g-item fade-up" data-img="images/kireedamvazhvu.jpg"><img src="handhold.jpg" alt="Kireedam Vazhvu"></div>
-      <div class="g-item fade-up" data-img="images/mothiramvazhvu.jpg"><img src="facetoface1.jpg" alt="Mothiram Vazhvu"></div>
+      <div class="g-item fade-up" data-img="images/kireedamvazhvu.jpg"><img src="handhold.jpg" alt="Jacob &amp; Rini - Kireedam Vazhvu" loading="lazy"></div>
+      <div class="g-item fade-up" data-img="images/mothiramvazhvu.jpg"><img src="facetoface1.jpg" alt="Jacob &amp; Rini - Mothiram Vazhvu" loading="lazy"></div>
     </div>
   </section>
   <!-- RECEPTION -->
@@ -1080,7 +1129,7 @@
       <div class="time">1:15 PM</div>
       <div class="divider"><svg class="cross-motif" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.4"><path d="M12 2v20M4 8h16M6 14h12"/></svg></div>
       <div class="venue">Sacred Heart Convention Centre<br>Mylapra</div>
-       <div class="venue-illustration fade-up has-photo"><img src="sacred1.jpg" alt="Sacred Heart Convention Centre, Mylapra"></div>
+       <div class="venue-illustration fade-up has-photo"><img src="sacred1.jpg" alt="Sacred Heart Convention Centre, Mylapra" loading="lazy"></div>
        
       <a class="btn fade-up" href="https://www.google.com/maps/search/Sacred+Heart+Auditorium+Mylapra" target="_blank" rel="noopener">Get Directions</a>
     </div>
@@ -1155,7 +1204,7 @@
     </div>
   </section>
   <div class="hero-photo fade-up hero-intro">
-      <img src="finalwalk1.jpg" alt="Jacob &amp; Rini">
+      <img src="finalwalk1.jpg" alt="Jacob &amp; Rini" loading="lazy">
     </div>
 
   <div class="lightbox" id="lightbox">
